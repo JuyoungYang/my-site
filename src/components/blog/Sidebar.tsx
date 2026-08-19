@@ -20,7 +20,7 @@ export function Sidebar() {
           alt="프로필 이미지"
           width={160}
           height={160}
-          className="h-40 w-40 rounded-full object-cover"
+          className="h-40 w-40 rounded-full object-cover transition-transform duration-200 hover:scale-105"
         />
         <span className="flex flex-col gap-0.5">
           <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">JUYOUNG&apos;S</span>
