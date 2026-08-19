@@ -1,0 +1,3493 @@
+{
+  "id": "3c1af76d-38e2-8036-ab83-ccce10936fb8",
+  "title": "RAG 시스템 데이터 구조 정리: Collection, Document, Metadata, Chunk, Embedding",
+  "summary": "LLM의 환각 현상을 해결하는 RAG 시스템의 3대 핵심 데이터 구조(Collection, Document, Metadata) 정리.",
+  "category": "AI 엔지니어링",
+  "tags": [
+    "RAG",
+    "VectorDB",
+    "LLM"
+  ],
+  "publishedAt": "2026-08-19",
+  "blocks": [
+    {
+      "id": "3c1af76d-38e2-8042-815d-f840e432661c",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "LLM(대형 언어 모델)의 환각(Hallucination)을 완화하고 외부 또는 내부 데이터를 활용하기 위해 RAG(Retrieval-Augmented Generation, 검색 증강 생성)가 널리 사용되고 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "LLM(대형 언어 모델)의 환각(Hallucination)을 완화하고 외부 또는 내부 데이터를 활용하기 위해 RAG(Retrieval-Augmented Generation, 검색 증강 생성)가 널리 사용되고 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80e5-8323-e1fbb11cdcfe",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "RAG는 LLM이 학습 과정에서 가지고 있는 지식만으로 답변하는 것이 아니라, ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "RAG는 LLM이 학습 과정에서 가지고 있는 지식만으로 답변하는 것이 아니라, ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "사용자의 질문과 관련된 데이터를 검색하고 그 결과를 LLM의 Context로 제공하여 답변을 생성하도록 하는 방식",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "사용자의 질문과 관련된 데이터를 검색하고 그 결과를 LLM의 Context로 제공하여 답변을 생성하도록 하는 방식",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8025-9b74-d043a4a87b0c",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이 글에서는 특정 프레임워크나 Vector DB의 구현 방식에 종속되지 않도록, RAG 시스템을 이해하는 데 필요한 주요 데이터 구조와 개념만을 정리합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이 글에서는 특정 프레임워크나 Vector DB의 구현 방식에 종속되지 않도록, RAG 시스템을 이해하는 데 필요한 주요 데이터 구조와 개념만을 정리합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-802d-8b91-d398b2ff90ae",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "핵심적으로 살펴볼 개념은 다음과 같습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "핵심적으로 살펴볼 개념은 다음과 같습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8006-95dd-d71583e790bf",
+      "type": "bulleted_list_item",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Collection",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Collection",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8083-8612-d7e950bce32b",
+      "type": "bulleted_list_item",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Document",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Document",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-803e-bc75-c99df7fe04e0",
+      "type": "bulleted_list_item",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Chunk",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Chunk",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8061-b00d-ec8e4cd8ec9c",
+      "type": "bulleted_list_item",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Metadata",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Metadata",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8027-89cd-ffaa855627a4",
+      "type": "bulleted_list_item",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Embedding",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Embedding",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-805a-9ee8-c2059239fb73",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c1af76d-38e2-8037-8d61-ff696cae1cb1",
+      "type": "heading_1",
+      "has_children": false,
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "1. 미리보기: 개념 한눈에 보기",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "1. 미리보기: 개념 한눈에 보기",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8030-9bfb-e3fc5814c3c9",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "RAG의 데이터 구조를 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "RAG의 데이터 구조를 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "전자 문서 관리 시스템",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "전자 문서 관리 시스템",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "에 비유하면 이렇습니다. 하나의 원본 문서가 저장되고, 검색을 위해 여러 개의 Chunk로 나뉘며, 각 데이터에는 제목·출처·작성일과 같은 Metadata가 연결될 수 있습니다. 이후 Chunk의 텍스트를 Embedding으로 변환하여 의미 기반 검색에 활용합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "에 비유하면 이렇습니다. 하나의 원본 문서가 저장되고, 검색을 위해 여러 개의 Chunk로 나뉘며, 각 데이터에는 제목·출처·작성일과 같은 Metadata가 연결될 수 있습니다. 이후 Chunk의 텍스트를 Embedding으로 변환하여 의미 기반 검색에 활용합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-803a-a024-e3aa3c96efa8",
+      "type": "table",
+      "has_children": true,
+      "table": {
+        "table_width": 3,
+        "has_column_header": true,
+        "has_row_header": false
+      },
+      "children": [
+        {
+          "id": "3c1af76d-38e2-802e-8655-c77da5fe9fd1",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "개념",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "개념",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "전자 문서 시스템에 비유하면",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "전자 문서 시스템에 비유하면",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "주요 역할",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "주요 역할",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-807d-820d-e13817502b9e",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Collection",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Collection",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "관련 문서를 모아놓은 문서함",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "관련 문서를 모아놓은 문서함",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "데이터를 논리적으로 묶어 관리",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "데이터를 논리적으로 묶어 관리",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-8021-aec6-d1d9329070d0",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Document",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Document",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "하나의 원본 문서",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "하나의 원본 문서",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "처리할 원본 데이터",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "처리할 원본 데이터",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-80fa-92e4-d714d4cb4707",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Chunk",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Chunk",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "문서의 일부 구간",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "문서의 일부 구간",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "검색에 사용하는 텍스트 단위",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "검색에 사용하는 텍스트 단위",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-8034-af0e-c886895eced6",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Metadata",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Metadata",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "문서 또는 Chunk의 속성값",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "문서 또는 Chunk의 속성값",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "출처, 제목, 날짜, 분류 등의 정보",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "출처, 제목, 날짜, 분류 등의 정보",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-80a9-974d-d92b508f2310",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Embedding",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Embedding",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "텍스트를 수치 벡터로 표현한 값",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "텍스트를 수치 벡터로 표현한 값",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "의미적 유사도 검색에 활용",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "의미적 유사도 검색에 활용",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3c1af76d-38e2-8099-a41b-e89cc9033d1d",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "각 개념을 좀 더 자세히 살펴보겠습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "각 개념을 좀 더 자세히 살펴보겠습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80a5-a32d-c2d45a609846",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c1af76d-38e2-803b-ae2f-e6c1a547319d",
+      "type": "heading_1",
+      "has_children": false,
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "2. Collection",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "2. Collection",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80a0-bec1-c1cae60dc047",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "정의.",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "정의.",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " Collection은 관련된 데이터를 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " Collection은 관련된 데이터를 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "하나의 논리적인 그룹으로 묶어 관리하는 단위",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "하나의 논리적인 그룹으로 묶어 관리하는 단위",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "입니다. 데이터가 무한정 하나의 덩어리로 쌓이면 검색 범위를 좁히기 어렵기 때문에, 성격이 비슷한 데이터끼리 묶어서 필요한 범위만 검색 대상으로 삼는 것입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "입니다. 데이터가 무한정 하나의 덩어리로 쌓이면 검색 범위를 좁히기 어렵기 때문에, 성격이 비슷한 데이터끼리 묶어서 필요한 범위만 검색 대상으로 삼는 것입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80f3-88cc-e63d4e84d04a",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "예시.",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "예시.",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " 사내 데이터를 RAG로 구축한다면 다음과 같이 논리적으로 구분할 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " 사내 데이터를 RAG로 구축한다면 다음과 같이 논리적으로 구분할 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-808c-a11e-f51f939dbaba",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "policy_db\ncustomer_logs\nproduct_manuals",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "policy_db\ncustomer_logs\nproduct_manuals",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8030-9ea1-d09ab9cec51c",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "사내 규정에 대한 질문을 처리하는 경우, 이 중 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "사내 규정에 대한 질문을 처리하는 경우, 이 중 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "policy_db",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": true,
+              "color": "default"
+            },
+            "plain_text": "policy_db",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "처럼 관련 있는 Collection만을 대상으로 검색할 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "처럼 관련 있는 Collection만을 대상으로 검색할 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8065-bfe4-f0f0a9092079",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c1af76d-38e2-804c-b33c-ebac50ca03d4",
+      "type": "heading_1",
+      "has_children": false,
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "3. Document",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "3. Document",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8022-b63d-e6aee3f9cf7c",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "정의.",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "정의.",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " Document는 RAG에서 다루는 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " Document는 RAG에서 다루는 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "하나의 원본 문서 또는 의미 있는 데이터 단위",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "하나의 원본 문서 또는 의미 있는 데이터 단위",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8052-9b0b-e1fb0b6881ec",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "2024년 임직원 복지 규정.pdf",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "2024년 임직원 복지 규정.pdf",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80ac-9682-d17345cfd8bb",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "주의할 점.",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "주의할 점.",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " Document가 반드시 PDF 파일을 의미하는 것은 아닙니다. 데이터의 성격에 따라 웹페이지, 이메일, 고객 문의 내용, 데이터베이스의 레코드 등이 하나의 Document로 정의될 수도 있습니다. 즉 Document의 기준은 특정 파일 형식이 아니라 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " Document가 반드시 PDF 파일을 의미하는 것은 아닙니다. 데이터의 성격에 따라 웹페이지, 이메일, 고객 문의 내용, 데이터베이스의 레코드 등이 하나의 Document로 정의될 수도 있습니다. 즉 Document의 기준은 특정 파일 형식이 아니라 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "RAG 시스템에서 하나의 의미 있는 원본 데이터로 취급하는 단위",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "RAG 시스템에서 하나의 의미 있는 원본 데이터로 취급하는 단위",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80ad-8aa6-e30a8ca48d8f",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Document는 이후 검색에 적합한 크기로 Chunking되며, 실제 검색에서는 이러한 Chunk가 주요 검색 단위로 사용되는 경우가 많습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Document는 이후 검색에 적합한 크기로 Chunking되며, 실제 검색에서는 이러한 Chunk가 주요 검색 단위로 사용되는 경우가 많습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80f9-9f63-c0d31d9caa74",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c1af76d-38e2-804e-9096-e09d747696e4",
+      "type": "heading_1",
+      "has_children": false,
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "4. Chunk",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "4. Chunk",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-809a-a72d-eae8d8119ed1",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "정의.",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "정의.",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " Chunk는 하나의 Document를 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " Chunk는 하나의 Document를 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "검색에 적합한 크기의 텍스트 단위로 나눈 것",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "검색에 적합한 크기의 텍스트 단위로 나눈 것",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80ce-b65c-c3b95124df4b",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "2024년 임직원 복지 규정.pdf\n\n├── Chunk 1\n│   └── 복지제도 개요\n│\n├── Chunk 2\n│   └── 건강검진 지원 규정\n│\n├── Chunk 3\n│   └── 경조사 지원 규정\n│\n└── Chunk 4\n    └── 자기계발비 지원 규정",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "2024년 임직원 복지 규정.pdf\n\n├── Chunk 1\n│   └── 복지제도 개요\n│\n├── Chunk 2\n│   └── 건강검진 지원 규정\n│\n├── Chunk 3\n│   └── 경조사 지원 규정\n│\n└── Chunk 4\n    └── 자기계발비 지원 규정",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80c5-82c5-ebc76df16b5e",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "왜 필요한가?",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "왜 필요한가?",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " 사용자의 질문과 관련된 내용을 문서 전체가 아니라 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " 사용자의 질문과 관련된 내용을 문서 전체가 아니라 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "일부 텍스트 단위로 검색하여 LLM에 제공하기 위해서",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "일부 텍스트 단위로 검색하여 LLM에 제공하기 위해서",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80f3-8b9a-e7fe24780473",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "가령 사용자가 \"건강검진 지원금은 얼마인가요?\"라고 질문했다면, 100페이지짜리 문서 전체가 아니라 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "가령 사용자가 \"건강검진 지원금은 얼마인가요?\"라고 질문했다면, 100페이지짜리 문서 전체가 아니라 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "건강검진 지원 규정",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": true,
+              "color": "default"
+            },
+            "plain_text": "건강검진 지원 규정",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "과 관련된 Chunk만 검색하여 Context로 사용하는 방식이 가능합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "과 관련된 Chunk만 검색하여 Context로 사용하는 방식이 가능합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80f3-bb28-fe35f0fea5b1",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "따라서 RAG에서는 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "따라서 RAG에서는 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "원본 Document를 그대로 검색하기보다는 Document를 Chunk로 나누고, Chunk를 검색 단위로 사용하는 구조가 일반적",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "원본 Document를 그대로 검색하기보다는 Document를 Chunk로 나누고, Chunk를 검색 단위로 사용하는 구조가 일반적",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-802d-81f8-cfc58d02e62a",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c1af76d-38e2-80ce-b1b7-c6e8e2185ad0",
+      "type": "heading_1",
+      "has_children": false,
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "5. Metadata",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "5. Metadata",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-808a-a265-d1736e2d1f02",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "정의.",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "정의.",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " Metadata는 Document 또는 Chunk를 설명하는 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " Metadata는 Document 또는 Chunk를 설명하는 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "구조화된 속성값",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "구조화된 속성값",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "이며, 일반적으로 Key-Value 형태로 표현됩니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이며, 일반적으로 Key-Value 형태로 표현됩니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8052-afff-ce04e96d34ff",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "{\n  \"title\": \"건강검진 지원 규정\",\n  \"department\": \"인사팀\",\n  \"category\": \"복지\",\n  \"effective_date\": \"2024-03-01\",\n  \"source\": \"복지규정.pdf\",\n  \"page\": 23\n}",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "{\n  \"title\": \"건강검진 지원 규정\",\n  \"department\": \"인사팀\",\n  \"category\": \"복지\",\n  \"effective_date\": \"2024-03-01\",\n  \"source\": \"복지규정.pdf\",\n  \"page\": 23\n}",
+            "href": null
+          }
+        ],
+        "language": "json"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80a9-9920-e6118a0af00c",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "여기서 중요한 점은 Metadata가 단순히 \"부가 정보\"만을 의미하는 것이 아니라는 것입니다. ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "여기서 중요한 점은 Metadata가 단순히 \"부가 정보\"만을 의미하는 것이 아니라는 것입니다. ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "데이터를 설명하는 속성이라면 무엇이든 Metadata가 될 수 있습니다",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "데이터를 설명하는 속성이라면 무엇이든 Metadata가 될 수 있습니다",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " — 제목(title), 작성자(author), 생성일(created_at), 부서(department), 분류(category), 출처(source), 페이지(page), 문서 유형(document_type) 등. 문서의 제목 역시 Metadata가 될 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " — 제목(title), 작성자(author), 생성일(created_at), 부서(department), 분류(category), 출처(source), 페이지(page), 문서 유형(document_type) 등. 문서의 제목 역시 Metadata가 될 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80da-b9a6-c58ddfa3f04e",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "왜 필요한가?",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "왜 필요한가?",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " 다음과 같은 질문을 가정해 보겠습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " 다음과 같은 질문을 가정해 보겠습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80c8-a22e-d2446a7388d4",
+      "type": "quote",
+      "has_children": false,
+      "quote": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "인사팀의 복지 규정만 검색해줘.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "인사팀의 복지 규정만 검색해줘.",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-805a-94a2-f45e327381b3",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이 경우 Metadata를 활용하여 검색 대상의 범위를 제한할 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이 경우 Metadata를 활용하여 검색 대상의 범위를 제한할 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80cf-b836-e12ee1ec25a1",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "department = \"인사팀\"\ncategory = \"복지\"",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "department = \"인사팀\"\ncategory = \"복지\"",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80ee-96ff-f2361944eaf7",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "또한 검색 결과에 포함된 Metadata를 이용해 문서의 출처, 날짜, 분류 등의 정보를 애플리케이션에서 활용할 수도 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "또한 검색 결과에 포함된 Metadata를 이용해 문서의 출처, 날짜, 분류 등의 정보를 애플리케이션에서 활용할 수도 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8010-8a7d-e14b677911ce",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c1af76d-38e2-80a9-97b7-f3025d02aca7",
+      "type": "heading_1",
+      "has_children": false,
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "6. Embedding",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "6. Embedding",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8075-9285-eb1d388db6b4",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "정의.",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "정의.",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " Embedding은 텍스트를 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " Embedding은 텍스트를 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "숫자로 이루어진 벡터로 표현한 것",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "숫자로 이루어진 벡터로 표현한 것",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-803a-9899-c43b16a178b2",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "\"건강검진 비용 지원\"\n        ↓ (Embedding Model)\n[0.021, -0.184, 0.731, 0.092, ...]",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "\"건강검진 비용 지원\"\n        ↓ (Embedding Model)\n[0.021, -0.184, 0.731, 0.092, ...]",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80c6-accb-e6b80320bc25",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "실제 벡터의 차원 수와 값은 사용하는 Embedding Model에 따라 달라집니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "실제 벡터의 차원 수와 값은 사용하는 Embedding Model에 따라 달라집니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8091-b799-ea8caefbd4d4",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "왜 필요한가?",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "왜 필요한가?",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " Embedding을 사용하면 텍스트를 벡터 공간에서 비교하여 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " Embedding을 사용하면 텍스트를 벡터 공간에서 비교하여 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "의미적으로 유사한 데이터를 검색",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "의미적으로 유사한 데이터를 검색",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "할 수 있습니다. 예를 들어 아래 두 문장은 표현이 완전히 동일하지 않지만 의미적으로 관련성이 높습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "할 수 있습니다. 예를 들어 아래 두 문장은 표현이 완전히 동일하지 않지만 의미적으로 관련성이 높습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80a2-b995-d51b3a6a7c2c",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "질문: \"건강검진 비용은 얼마나 지원되나요?\"\n문서: \"임직원은 연간 최대 50만 원의 건강검진 비용을 지원받을 수 있습니다.\"",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "질문: \"건강검진 비용은 얼마나 지원되나요?\"\n문서: \"임직원은 연간 최대 50만 원의 건강검진 비용을 지원받을 수 있습니다.\"",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8037-9e98-e61f579bb37e",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "두 텍스트를 각각 벡터로 표현하면 벡터 간 유사도를 계산하여 질문과 관련성이 높은 데이터를 찾을 수 있습니다. 이러한 검색을 일반적으로 Semantic Search 또는 Vector Search라고 부릅니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "두 텍스트를 각각 벡터로 표현하면 벡터 간 유사도를 계산하여 질문과 관련성이 높은 데이터를 찾을 수 있습니다. 이러한 검색을 일반적으로 Semantic Search 또는 Vector Search라고 부릅니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-804b-9251-d25a26b059af",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c1af76d-38e2-8000-bf8f-e5e17eb7fd99",
+      "type": "heading_1",
+      "has_children": false,
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "7. 전체 파이프라인: 저장부터 답변까지",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "7. 전체 파이프라인: 저장부터 답변까지",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8021-8008-e7c2149b9dc1",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "앞에서 살펴본 개념들이 실제 RAG Pipeline에서는 이렇게 연결됩니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "앞에서 살펴본 개념들이 실제 RAG Pipeline에서는 이렇게 연결됩니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8067-a306-e34fa04af3ac",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "데이터 저장 과정",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "데이터 저장 과정",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80c2-98fa-ed3d4a7bd6e0",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "[데이터 수집] → [Document 생성] → [Chunking] → [Embedding 생성] → [저장]",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "[데이터 수집] → [Document 생성] → [Chunking] → [Embedding 생성] → [저장]",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-805a-bbc7-f4551181c608",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "논리적으로는 각 검색 단위(Chunk)에 다음 정보가 함께 연결됩니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "논리적으로는 각 검색 단위(Chunk)에 다음 정보가 함께 연결됩니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8077-bd81-d78eba4d2868",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Chunk\n├── Text\n├── Metadata\n└── Embedding",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Chunk\n├── Text\n├── Metadata\n└── Embedding",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80f9-a15c-f02919a61bc8",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "질문이 들어온 이후",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "질문이 들어온 이후",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8057-9471-fb3a5440812f",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "사용자 질문\n      ↓\nQuery Embedding\n      ↓\n검색 (Vector Similarity Search + 필요 시 Metadata Filtering)\n      ↓\n관련 Chunk 검색\n      ↓\n검색된 텍스트 + 필요한 정보 → LLM Context\n      ↓\n답변 생성",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "사용자 질문\n      ↓\nQuery Embedding\n      ↓\n검색 (Vector Similarity Search + 필요 시 Metadata Filtering)\n      ↓\n관련 Chunk 검색\n      ↓\n검색된 텍스트 + 필요한 정보 → LLM Context\n      ↓\n답변 생성",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8012-894b-d532c82fbd19",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Metadata Filtering과 Vector Search의 정확한 실행 순서는 사용하는 검색 시스템과 구현 방식에 따라 달라질 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Metadata Filtering과 Vector Search의 정확한 실행 순서는 사용하는 검색 시스템과 구현 방식에 따라 달라질 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8085-ac59-f1b0cd946913",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "즉 RAG는 단순히 \"저장된 데이터에서 문서를 찾는 것\"이 아니라, ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "즉 RAG는 단순히 \"저장된 데이터에서 문서를 찾는 것\"이 아니라, ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "사용자의 질문을 검색 가능한 표현으로 변환하고, 필요한 검색 조건을 적용하여 질문과 관련된 데이터를 찾은 후, 검색 결과를 LLM의 Context로 제공하여 답변을 생성하는 과정",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "사용자의 질문을 검색 가능한 표현으로 변환하고, 필요한 검색 조건을 적용하여 질문과 관련된 데이터를 찾은 후, 검색 결과를 LLM의 Context로 제공하여 답변을 생성하는 과정",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "이라고 이해할 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이라고 이해할 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80c0-b55d-d7b265723ade",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c1af76d-38e2-80a5-862e-d117b117e710",
+      "type": "heading_1",
+      "has_children": false,
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "8. 통합 예시: 질문 하나로 끝까지 따라가기",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "8. 통합 예시: 질문 하나로 끝까지 따라가기",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8056-a236-c3405fc2f7c6",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "다음 질문을 가정해 보겠습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "다음 질문을 가정해 보겠습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8030-a0e4-f0780137d354",
+      "type": "quote",
+      "has_children": false,
+      "quote": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "2026년 3월에 개정된 인사팀 복지 규정에서 건강검진 지원금은 얼마인가요?",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "2026년 3월에 개정된 인사팀 복지 규정에서 건강검진 지원금은 얼마인가요?",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8029-8285-e49774183cda",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "① Metadata로 검색 범위 제한",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "① Metadata로 검색 범위 제한",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8040-a4ec-f029ccabd2b8",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "department = \"인사팀\"\ncategory = \"복지\"\neffective_date >= \"2026-03-01\"",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "department = \"인사팀\"\ncategory = \"복지\"\neffective_date >= \"2026-03-01\"",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8018-b1da-c0dc4f6c4a53",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "② 해당 범위에서 의미적으로 관련성 높은 Chunk 검색",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "② 해당 범위에서 의미적으로 관련성 높은 Chunk 검색",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-807e-85fd-d323630e02a1",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "사용자 질문 \"건강검진 지원금은 얼마인가요?\"\n        ↓ Query Embedding\n        ↓ Metadata Filtering + Vector Search\n관련 Chunk 검색",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "사용자 질문 \"건강검진 지원금은 얼마인가요?\"\n        ↓ Query Embedding\n        ↓ Metadata Filtering + Vector Search\n관련 Chunk 검색",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-803d-bbd8-e1659823b7e3",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "③ 검색 결과로 아래와 같은 Chunk가 반환되었다고 가정",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "③ 검색 결과로 아래와 같은 Chunk가 반환되었다고 가정",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80e8-88eb-c25591e88708",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "제목: 건강검진 지원 규정\n부서: 인사팀\n시행일: 2026-03-01\n\n2024년부터 임직원 건강검진 지원금은 연간 최대 50만 원으로 변경되었습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "제목: 건강검진 지원 규정\n부서: 인사팀\n시행일: 2026-03-01\n\n2024년부터 임직원 건강검진 지원금은 연간 최대 50만 원으로 변경되었습니다.",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80f7-87f6-fce35d027476",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "④ 이 Chunk는 논리적으로 다음과 같은 형태의 데이터로 다뤄집니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "④ 이 Chunk는 논리적으로 다음과 같은 형태의 데이터로 다뤄집니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80e2-b74f-da53cd6e1d6f",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "{\n  \"text\": \"임직원은 연간 최대 50만 원의 건강검진 비용을 지원받을 수 있습니다.\",\n  \"metadata\": {\n    \"title\": \"건강검진 지원 규정\",\n    \"department\": \"인사팀\",\n    \"category\": \"복지\",\n    \"effective_date\": \"2026-03-01\"\n  },\n  \"embedding\": [0.021, -0.184, 0.731, \"...\"]\n}",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "{\n  \"text\": \"임직원은 연간 최대 50만 원의 건강검진 비용을 지원받을 수 있습니다.\",\n  \"metadata\": {\n    \"title\": \"건강검진 지원 규정\",\n    \"department\": \"인사팀\",\n    \"category\": \"복지\",\n    \"effective_date\": \"2026-03-01\"\n  },\n  \"embedding\": [0.021, -0.184, 0.731, \"...\"]\n}",
+            "href": null
+          }
+        ],
+        "language": "json"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80c6-81e1-c0c947ce7226",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이 검색 결과를 LLM의 Context로 제공하면, LLM은 해당 정보를 바탕으로 사용자의 질문에 답변할 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이 검색 결과를 LLM의 Context로 제공하면, LLM은 해당 정보를 바탕으로 사용자의 질문에 답변할 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8003-bbef-e21830187ee1",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이처럼 RAG는 ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이처럼 RAG는 ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "외부 또는 내부 데이터를 검색하여 LLM의 답변에 활용할 수 있도록 하는 구조",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "외부 또는 내부 데이터를 검색하여 LLM의 답변에 활용할 수 있도록 하는 구조",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-804d-9fee-cc7f49ca7ef7",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c1af76d-38e2-806d-9792-e07144177891",
+      "type": "heading_1",
+      "has_children": false,
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "9. 설계 체크리스트",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "9. 설계 체크리스트",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-808f-949f-ff0f4a158422",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "지금까지 살펴본 흐름을 정리하면 다음과 같습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "지금까지 살펴본 흐름을 정리하면 다음과 같습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-80fb-b42a-ff11fad4dd1b",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Document를 적절한 Chunk로 나누고\n    → 각 Chunk에 필요한 Metadata를 연결하고\n    → Chunk의 텍스트를 Embedding으로 변환하여 검색 가능한 형태로 저장한 뒤\n    → 사용자의 질문과 관련된 Chunk를 검색하고\n    → 검색 결과를 LLM의 Context로 제공한다",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Document를 적절한 Chunk로 나누고\n    → 각 Chunk에 필요한 Metadata를 연결하고\n    → Chunk의 텍스트를 Embedding으로 변환하여 검색 가능한 형태로 저장한 뒤\n    → 사용자의 질문과 관련된 Chunk를 검색하고\n    → 검색 결과를 LLM의 Context로 제공한다",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8031-8d4e-dde041f3c814",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "따라서 RAG 시스템을 설계할 때는 단순히 어떤 Vector DB를 사용할 것인지만 결정하는 것이 아니라, 다음 요소를 함께 설계하는 것이 중요합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "따라서 RAG 시스템을 설계할 때는 단순히 어떤 Vector DB를 사용할 것인지만 결정하는 것이 아니라, 다음 요소를 함께 설계하는 것이 중요합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c1af76d-38e2-8096-9e4d-c6d7143483b2",
+      "type": "table",
+      "has_children": true,
+      "table": {
+        "table_width": 2,
+        "has_column_header": true,
+        "has_row_header": false
+      },
+      "children": [
+        {
+          "id": "3c1af76d-38e2-80eb-be7d-f527f3b131c9",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "설계 요소",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "설계 요소",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "결정해야 할 질문",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "결정해야 할 질문",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-8098-882c-e48ab4936b7a",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Document",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Document",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "어떤 데이터를 하나의 Document로 정의할 것인가?",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "어떤 데이터를 하나의 Document로 정의할 것인가?",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-80ef-a8f0-fe7b7e175431",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Chunking",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Chunking",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Document를 어떤 기준과 크기로 나눌 것인가?",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Document를 어떤 기준과 크기로 나눌 것인가?",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-803f-b435-f4a685f048db",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Metadata",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Metadata",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "어떤 속성 정보를 관리하고 검색에 활용할 것인가?",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "어떤 속성 정보를 관리하고 검색에 활용할 것인가?",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-80bf-a275-fe25bb2394ff",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Embedding Model",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Embedding Model",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "어떤 모델을 사용하여 텍스트를 벡터로 표현할 것인가?",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "어떤 모델을 사용하여 텍스트를 벡터로 표현할 것인가?",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c1af76d-38e2-80cb-90f0-d24adc2049d1",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "검색 방식",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "검색 방식",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Vector Search, Metadata Filtering 등을 어떻게 조합할 것인가?",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "Vector Search, Metadata Filtering 등을 어떻게 조합할 것인가?",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3c1af76d-38e2-80f6-872f-d8157be8869c",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "여기서 정리한 Collection, Document, Chunk, Metadata, Embedding은 RAG를 구현하는 대부분의 시스템에서 공통적으로 등장하는 개념입니다. 실제 제품마다 이를 부르는 이름이나 세부 저장 방식은 다를 수 있지만, 핵심 아이디어는 위 다섯 가지로 요약됩니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "여기서 정리한 Collection, Document, Chunk, Metadata, Embedding은 RAG를 구현하는 대부분의 시스템에서 공통적으로 등장하는 개념입니다. 실제 제품마다 이를 부르는 이름이나 세부 저장 방식은 다를 수 있지만, 핵심 아이디어는 위 다섯 가지로 요약됩니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    }
+  ]
+}

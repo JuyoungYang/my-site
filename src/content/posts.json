@@ -1,0 +1,14 @@
+[
+  {
+    "id": "3c1af76d-38e2-8036-ab83-ccce10936fb8",
+    "title": "RAG 시스템 데이터 구조 정리: Collection, Document, Metadata, Chunk, Embedding",
+    "summary": "LLM의 환각 현상을 해결하는 RAG 시스템의 3대 핵심 데이터 구조(Collection, Document, Metadata) 정리.",
+    "category": "AI 엔지니어링",
+    "tags": [
+      "RAG",
+      "VectorDB",
+      "LLM"
+    ],
+    "publishedAt": "2026-08-19"
+  }
+]
