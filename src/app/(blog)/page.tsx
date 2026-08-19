@@ -3,12 +3,11 @@ const INTERESTS = ["데이터 엔지니어링", "피지컬 AI", "Vision AI", "LL
 export default function HomePage() {
   return (
     <article>
-      <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-        안녕하세요, 양주영입니다.
-      </h1>
+      <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">About</h1>
 
-      <p className="mt-4 leading-relaxed text-zinc-600 dark:text-zinc-400">
-        이 공간은 제가 공부한 내용을 기록하고 정리하기 위해 만든 블로그입니다.
+      <p className="mt-6 leading-relaxed text-zinc-600 dark:text-zinc-400">
+        안녕하세요, 양주영입니다. 이 공간은 제가 공부한 내용을 기록하고 정리하기 위해 만든
+        블로그입니다.
       </p>
 
       <h2 className="mt-10 text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">

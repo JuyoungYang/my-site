@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JUYOUNG Blog",
+  title: "Study Archive",
   description: "개발 공부 기록 블로그",
 };
 
