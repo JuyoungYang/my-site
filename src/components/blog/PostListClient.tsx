@@ -4,8 +4,14 @@ import { useMemo, useState } from "react";
 import type { PostSummary } from "@/types/post";
 import { PostCard } from "./PostCard";
 
-export function PostListClient({ posts }: { posts: PostSummary[] }) {
-  const [category, setCategory] = useState<string | null>(null);
+export function PostListClient({
+  posts,
+  initialCategory,
+}: {
+  posts: PostSummary[];
+  initialCategory?: string;
+}) {
+  const [category, setCategory] = useState<string | null>(initialCategory ?? null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const categories = useMemo(
