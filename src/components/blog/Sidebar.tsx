@@ -16,7 +16,7 @@ export function Sidebar() {
       <Link href="/" className="flex flex-col items-start gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/avatar.svg"
+          src="/avatar.png"
           alt="프로필 이미지"
           width={80}
           height={80}
