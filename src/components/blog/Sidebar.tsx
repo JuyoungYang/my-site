@@ -26,7 +26,7 @@ export function Sidebar() {
           <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">JUYOUNG&apos;S</span>
           <span className="text-lg font-semibold tracking-tight">Study Archive</span>
           <span className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-            데이터 엔지니어링 · AI · 피지컬 AI
+            데이터 엔지니어링 · 피지컬 AI · LLM
           </span>
         </span>
       </Link>
