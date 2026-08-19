@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { href: "/", label: "홈" },
   { href: "/categories", label: "Categories" },
-  { href: "/about", label: "About" },
 ];
 
 export function Sidebar() {
@@ -14,8 +13,16 @@ export function Sidebar() {
 
   return (
     <aside className="md:sticky md:top-10 md:h-fit md:w-48 md:shrink-0">
-      <Link href="/" className="text-lg font-semibold tracking-tight">
-        Study Archive
+      <Link href="/" className="flex flex-col items-start gap-3">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/avatar.svg"
+          alt="프로필 이미지"
+          width={80}
+          height={80}
+          className="h-20 w-20 rounded-full object-cover"
+        />
+        <span className="text-lg font-semibold tracking-tight">Study Archive</span>
       </Link>
 
       <nav className="mt-6 flex flex-col gap-1">
