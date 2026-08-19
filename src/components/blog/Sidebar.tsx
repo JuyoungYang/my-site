@@ -22,7 +22,12 @@ export function Sidebar() {
           height={160}
           className="h-40 w-40 rounded-full object-cover"
         />
-        <span className="text-lg font-semibold tracking-tight">Study Archive</span>
+        <span className="flex flex-col gap-0.5">
+          <span className="text-lg font-semibold tracking-tight">JUYOUNG Blog</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-400">
+            데이터 엔지니어링 · AI · 피지컬 AI
+          </span>
+        </span>
       </Link>
 
       <nav className="mt-6 flex flex-col gap-1">
