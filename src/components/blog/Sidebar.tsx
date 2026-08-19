@@ -18,9 +18,9 @@ export function Sidebar() {
         <img
           src="/avatar.png"
           alt="프로필 이미지"
-          width={80}
-          height={80}
-          className="h-20 w-20 rounded-full object-cover"
+          width={160}
+          height={160}
+          className="h-40 w-40 rounded-full object-cover"
         />
         <span className="text-lg font-semibold tracking-tight">Study Archive</span>
       </Link>
