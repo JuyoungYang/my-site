@@ -15,8 +15,8 @@ export function VisitorCount() {
   if (count === null) return null;
 
   return (
-    <p className="mt-6 text-xs text-zinc-400 dark:text-zinc-500">
+    <span className="mt-6 inline-flex w-fit items-center rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
       방문자수 {count.toLocaleString()}
-    </p>
+    </span>
   );
 }
