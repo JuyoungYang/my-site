@@ -52,8 +52,10 @@ export function Sidebar() {
         })}
       </nav>
 
-      <ThemeToggle />
-      <VisitorCount />
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <ThemeToggle />
+        <VisitorCount />
+      </div>
     </aside>
   );
 }

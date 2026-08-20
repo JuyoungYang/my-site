@@ -24,8 +24,8 @@ export function ThemeToggle() {
       role="switch"
       aria-checked={isDark}
       aria-label="다크 모드 전환"
-      className={`relative mt-6 flex h-7 w-14 shrink-0 items-center rounded-full transition-colors ${
-        isDark ? "bg-zinc-800" : "bg-zinc-200"
+      className={`relative flex h-7 w-14 shrink-0 items-center rounded-full transition-colors ${
+        isDark ? "bg-zinc-800" : "bg-zinc-100"
       }`}
     >
       <span
