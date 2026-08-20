@@ -1,0 +1,1520 @@
+{
+  "id": "3c2af76d-38e2-8077-a989-e92f71f6bd6e",
+  "title": "피지컬 AI 뜻과 원리 - LLM, VLM은 어떻게 로봇을 움직이는가",
+  "summary": "피지컬 AI를 이해하는 데 필요한 생성형 AI, LLM, VLM 개념을 정리하고, 이 모델들이 로봇 안에서 맡는 역할과 아직 남은 한계까지 짚어보았습니다.",
+  "category": "피지컬 AI",
+  "tags": [
+    "LLM",
+    "피지컬AI",
+    "VLM",
+    "생성형AI"
+  ],
+  "publishedAt": "2026-08-19",
+  "blocks": [
+    {
+      "id": "3c2af76d-38e2-809a-8612-fb66cd6d72e4",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "로봇이 사람처럼 상황을 이해하고 행동한다는 이야기는 이제 낯설지 않습니다. 그 중심에 있는 개념이 피지컬 AI(Physical AI)입니다. 이 글에서는 피지컬 AI를 이해하는 데 필요한 생성형 AI, LLM, VLM 개념을 정리하고, 이 모델들이 결합됐을 때 왜 시너지가 나는지, 그리고 아직 남아있는 한계는 무엇인지 정리해보았습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "로봇이 사람처럼 상황을 이해하고 행동한다는 이야기는 이제 낯설지 않습니다. 그 중심에 있는 개념이 피지컬 AI(Physical AI)입니다. 이 글에서는 피지컬 AI를 이해하는 데 필요한 생성형 AI, LLM, VLM 개념을 정리하고, 이 모델들이 결합됐을 때 왜 시너지가 나는지, 그리고 아직 남아있는 한계는 무엇인지 정리해보았습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80a1-b85a-d0819ef96d9e",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c2af76d-38e2-8036-81e0-fce5c6d40e4e",
+      "type": "heading_2",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "1. 개념 정리",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "1. 개념 정리",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8016-95cf-e2f186c39d82",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "생성형 AI(Generative AI)는 텍스트, 이미지, 음성 등 새로운 콘텐츠를 만들어내는 AI를 통칭하는 가장 큰 범주입니다. 그 안에 텍스트를 다루는 LLM, 이미지를 다루는 이미지 생성 모델 등이 하위 개념으로 포함됩니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "생성형 AI(Generative AI)는 텍스트, 이미지, 음성 등 새로운 콘텐츠를 만들어내는 AI를 통칭하는 가장 큰 범주입니다. 그 안에 텍스트를 다루는 LLM, 이미지를 다루는 이미지 생성 모델 등이 하위 개념으로 포함됩니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80d2-9980-f0b050ff6ef2",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "LLM(Large Language Model, 대형 언어 모델)은 생성형 AI 중에서도 텍스트를 이해하고 생성하는 데 특화된 모델입니다. 명령이나 상황을 언어로 이해하고, 그에 맞는 판단이나 계획을 세우는 역할을 합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "LLM(Large Language Model, 대형 언어 모델)은 생성형 AI 중에서도 텍스트를 이해하고 생성하는 데 특화된 모델입니다. 명령이나 상황을 언어로 이해하고, 그에 맞는 판단이나 계획을 세우는 역할을 합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8088-adb1-e24718e555db",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "VLM(Vision-Language Model, 시각-언어 모델)은 이미지나 영상 같은 시각 정보와 언어를 함께 이해하는 모델로, 대형 언어 모델에 시각 처리 능력을 더해 만들어지는 경우가 많습니다. 다만 VLM은 어디까지나 보고 이해하는 모델이지, 그 자체로 로봇을 움직이는 모델은 아닙니다. VLM이 파악한 시각 정보를 실제 움직임으로 옮기려면 로봇의 관절이나 모터를 제어하는 별도의 행동(Action) 능력이 더해져야 하는데, 이렇게 시각·언어 이해에 행동 생성까지 하나로 묶은 모델을 VLA(Vision-Language-Action) 모델이라고 부릅니다. 업계에서는 이 VLA를 피지컬 AI를 구현하는 핵심 아키텍처로 소개하는 경우가 많습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "VLM(Vision-Language Model, 시각-언어 모델)은 이미지나 영상 같은 시각 정보와 언어를 함께 이해하는 모델로, 대형 언어 모델에 시각 처리 능력을 더해 만들어지는 경우가 많습니다. 다만 VLM은 어디까지나 보고 이해하는 모델이지, 그 자체로 로봇을 움직이는 모델은 아닙니다. VLM이 파악한 시각 정보를 실제 움직임으로 옮기려면 로봇의 관절이나 모터를 제어하는 별도의 행동(Action) 능력이 더해져야 하는데, 이렇게 시각·언어 이해에 행동 생성까지 하나로 묶은 모델을 VLA(Vision-Language-Action) 모델이라고 부릅니다. 업계에서는 이 VLA를 피지컬 AI를 구현하는 핵심 아키텍처로 소개하는 경우가 많습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80e5-9486-f410ef397682",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "피지컬 AI(Physical AI)는 이런 개별 모델 하나를 가리키는 말이 아니라, 로봇처럼 물리적 실체를 가지고 현실 세계를 인지하고 판단하고 행동하는 AI 시스템 전체를 가리키는 말입니다. 생성형 AI가 주로 텍스트나 이미지 같은 데이터 위에서 언어와 개념을 다루는 데 강하다면, 피지컬 AI는 여기에 공간 관계와 물리 법칙에 대한 이해, 그리고 실제 행동까지 더해진 다음 단계로 이야기되곤 합니다. 즉 LLM과 VLM은 피지컬 AI를 구성하는 지능의 한 부분이고, 피지컬 AI는 여기에 로봇의 실제 움직임과 제어까지 포함한 더 큰 개념입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "피지컬 AI(Physical AI)는 이런 개별 모델 하나를 가리키는 말이 아니라, 로봇처럼 물리적 실체를 가지고 현실 세계를 인지하고 판단하고 행동하는 AI 시스템 전체를 가리키는 말입니다. 생성형 AI가 주로 텍스트나 이미지 같은 데이터 위에서 언어와 개념을 다루는 데 강하다면, 피지컬 AI는 여기에 공간 관계와 물리 법칙에 대한 이해, 그리고 실제 행동까지 더해진 다음 단계로 이야기되곤 합니다. 즉 LLM과 VLM은 피지컬 AI를 구성하는 지능의 한 부분이고, 피지컬 AI는 여기에 로봇의 실제 움직임과 제어까지 포함한 더 큰 개념입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8033-b2c2-d70f4c9d3dbf",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "정리하면 이런 관계로 이해할 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "정리하면 이런 관계로 이해할 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80b9-936f-f6b5a6091f64",
+      "type": "code",
+      "has_children": false,
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "생성형 AI\n ├── LLM (텍스트 이해·생성)\n └── VLM (시각+언어 이해)\n       └── + 행동(Action) 능력 → VLA\n\n피지컬 AI = LLM, VLM(또는 VLA) 같은 이해·판단 능력을 활용해\n            현실 세계에서 인지·판단·행동까지 수행하는 시스템 전체",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "생성형 AI\n ├── LLM (텍스트 이해·생성)\n └── VLM (시각+언어 이해)\n       └── + 행동(Action) 능력 → VLA\n\n피지컬 AI = LLM, VLM(또는 VLA) 같은 이해·판단 능력을 활용해\n            현실 세계에서 인지·판단·행동까지 수행하는 시스템 전체",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-800a-95a1-c01a7df5826d",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c2af76d-38e2-806d-bd27-fb7330ae88dd",
+      "type": "heading_2",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "2. LLM과 VLM, 로봇 안에서 각각 무엇을 하는가",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "2. LLM과 VLM, 로봇 안에서 각각 무엇을 하는가",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80a7-abe6-e663b46de67f",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "LLM은 로봇 관점에서 \"무엇을 해야 하는가\"를 결정하는 역할을 합니다. 사람이 입력한 지시사항을 이해하고, 그 안에 담긴 조건이나 목표를 파악해서 상황에 맞는 계획을 세우는 것이 LLM의 영역입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "LLM은 로봇 관점에서 \"무엇을 해야 하는가\"를 결정하는 역할을 합니다. 사람이 입력한 지시사항을 이해하고, 그 안에 담긴 조건이나 목표를 파악해서 상황에 맞는 계획을 세우는 것이 LLM의 영역입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-800d-a3ee-e6670f44f457",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "VLM은 로봇 관점에서 카메라로 들어오는 시각 정보를 실시간으로 해석하는 역할을 합니다. LLM이 세운 계획을 실제로 실행하려면 지금 눈앞에 무엇이 있는지, 상황이 어떻게 변하고 있는지를 계속 인식해야 하는데, 그 인식을 담당하는 것이 VLM입니다. 다만 앞서 정리했듯 VLM은 인식과 이해까지를 담당하고, 실제 움직임으로 옮기는 것은 여기에 행동 능력이 더해진 VLA나 별도의 로봇 제어 시스템의 몫입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "VLM은 로봇 관점에서 카메라로 들어오는 시각 정보를 실시간으로 해석하는 역할을 합니다. LLM이 세운 계획을 실제로 실행하려면 지금 눈앞에 무엇이 있는지, 상황이 어떻게 변하고 있는지를 계속 인식해야 하는데, 그 인식을 담당하는 것이 VLM입니다. 다만 앞서 정리했듯 VLM은 인식과 이해까지를 담당하고, 실제 움직임으로 옮기는 것은 여기에 행동 능력이 더해진 VLA나 별도의 로봇 제어 시스템의 몫입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80af-9975-c1d1e381805c",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "정리하면 이렇게 구분할 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "정리하면 이렇게 구분할 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80c9-a95c-fd2bb10d94ad",
+      "type": "table",
+      "has_children": true,
+      "table": {
+        "table_width": 3,
+        "has_column_header": true,
+        "has_row_header": false
+      },
+      "children": [
+        {
+          "id": "3c2af76d-38e2-8015-8f69-fac5e48e254e",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "구분",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "구분",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "역할",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "역할",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "담당 질문",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "담당 질문",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c2af76d-38e2-8080-8546-c34a5409a4e9",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "LLM",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "LLM",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "명령과 상황을 언어로 이해하고 계획을 세움",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "명령과 상황을 언어로 이해하고 계획을 세움",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "무엇을 해야 하는가",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "무엇을 해야 하는가",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c2af76d-38e2-8084-be16-ee7ad9af4811",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "VLM",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "VLM",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "시각 정보를 실시간으로 해석함",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "시각 정보를 실시간으로 해석함",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "지금 무엇이 보이는가",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "지금 무엇이 보이는가",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "id": "3c2af76d-38e2-80ae-ad70-eaf181b18800",
+          "type": "table_row",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "VLA / 로봇 제어 시스템",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "VLA / 로봇 제어 시스템",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "인식된 정보를 실제 움직임으로 옮김",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "인식된 정보를 실제 움직임으로 옮김",
+                  "href": null
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "어떻게 움직일 것인가",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "어떻게 움직일 것인가",
+                  "href": null
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "3c2af76d-38e2-80e3-9fe4-f4454bd1f5e2",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c2af76d-38e2-8050-9423-dd7985da1452",
+      "type": "heading_2",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "3. 세 요소가 결합됐을 때",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "3. 세 요소가 결합됐을 때",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80e0-a703-e7171bc0ceb1",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "LLM, VLM, 로봇 제어 시스템은 각자도 의미가 있지만, 결합됐을 때 훨씬 자연스러운 로봇 지능이 완성됩니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "LLM, VLM, 로봇 제어 시스템은 각자도 의미가 있지만, 결합됐을 때 훨씬 자연스러운 로봇 지능이 완성됩니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8025-a06b-c980b74149a2",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "창고 순찰 로봇을 예로 들어보겠습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "창고 순찰 로봇을 예로 들어보겠습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80e3-92df-d46e9c68e737",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "로봇에게 이렇게 지시했다고 가정해봅시다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "로봇에게 이렇게 지시했다고 가정해봅시다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80af-919b-fd3e36db610f",
+      "type": "quote",
+      "has_children": false,
+      "quote": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "\"창고를 순찰하다가 수상한 움직임이나 소리가 나면 확인 후 보고해라.\"",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "\"창고를 순찰하다가 수상한 움직임이나 소리가 나면 확인 후 보고해라.\"",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8046-be66-debe00edd4c1",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이 지시를 처리할 때 각 요소는 서로 다른 부분을 담당합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이 지시를 처리할 때 각 요소는 서로 다른 부분을 담당합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80fc-bcf6-e1257f77d3cf",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "LLM이 잘하는 영역은, \"순찰\", \"수상한 움직임\", \"소리\"가 각각 어떤 상황을 가리키는지, 그리고 그 상황이 발생했을 때 \"확인 후 보고\"라는 절차를 따라야 한다는 것을 이해하는 부분입니다. 즉 지시사항 안에 담긴 이벤트 조건과 대응 절차를 언어적으로 해석하는 역할입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "LLM이 잘하는 영역은, \"순찰\", \"수상한 움직임\", \"소리\"가 각각 어떤 상황을 가리키는지, 그리고 그 상황이 발생했을 때 \"확인 후 보고\"라는 절차를 따라야 한다는 것을 이해하는 부분입니다. 즉 지시사항 안에 담긴 이벤트 조건과 대응 절차를 언어적으로 해석하는 역할입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-800a-9f48-c10a60d49d32",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "VLM이 잘하는 영역은, 카메라로 들어오는 영상에서 평소와 다른 움직임을 포착하거나, 소리가 어느 방향에서 났는지 시각·청각 정보를 종합해 상황을 인식하는 부분입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "VLM이 잘하는 영역은, 카메라로 들어오는 영상에서 평소와 다른 움직임을 포착하거나, 소리가 어느 방향에서 났는지 시각·청각 정보를 종합해 상황을 인식하는 부분입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8084-802c-c273ed084dfe",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "그리고 실제로 창고 안을 이동하면서 장애물을 피하고, 소리가 난 방향으로 카메라를 돌리고, 확인을 위해 적절한 타이밍에 멈추는 것은 VLM이 인식한 정보를 바탕으로 VLA나 로봇 제어 시스템이 수행하는 영역입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "그리고 실제로 창고 안을 이동하면서 장애물을 피하고, 소리가 난 방향으로 카메라를 돌리고, 확인을 위해 적절한 타이밍에 멈추는 것은 VLM이 인식한 정보를 바탕으로 VLA나 로봇 제어 시스템이 수행하는 영역입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-801c-8d16-d2a276c43ab7",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이렇게 무엇을 해야 하는지 이해하는 지능(LLM), 지금 상황을 인식하는 지능(VLM), 그것을 현실에서 실행하는 제어(VLA·로봇 제어 시스템)가 결합되면, 사람이 일일이 모든 상황을 하드코딩하지 않아도 로봇이 유연하게 대응할 수 있게 됩니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이렇게 무엇을 해야 하는지 이해하는 지능(LLM), 지금 상황을 인식하는 지능(VLM), 그것을 현실에서 실행하는 제어(VLA·로봇 제어 시스템)가 결합되면, 사람이 일일이 모든 상황을 하드코딩하지 않아도 로봇이 유연하게 대응할 수 있게 됩니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8015-af45-d90ecdba44a5",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c2af76d-38e2-800a-bb3e-d4506edcbf5b",
+      "type": "heading_2",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "4. 아직 남은 한계",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "4. 아직 남은 한계",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80f9-a549-d215b1936083",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "인간처럼 사고하고 행동하는 로봇이 머지않아 보이지만, 실제로는 아직 풀어야 할 문제들이 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "인간처럼 사고하고 행동하는 로봇이 머지않아 보이지만, 실제로는 아직 풀어야 할 문제들이 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80af-b8fe-fd721aa7ccbc",
+      "type": "heading_3",
+      "has_children": false,
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "첫째, 그라운딩(Grounding) 문제",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "첫째, 그라운딩(Grounding) 문제",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80a9-b78b-ebf5d93c4c40",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "언어와 시각적 의미를 이해하는 것과, 그 이해를 실제 행동 명령이나 좌표계로 연결하는 것은 전혀 다른 문제입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "언어와 시각적 의미를 이해하는 것과, 그 이해를 실제 행동 명령이나 좌표계로 연결하는 것은 전혀 다른 문제입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80c5-a0a6-d005b131e5eb",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "예를 들어 \"오른쪽에 있는 컵을 집어줘\"라는 명령을 이해했다고 해도, 로봇은 다음을 모두 계산해야 합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "예를 들어 \"오른쪽에 있는 컵을 집어줘\"라는 명령을 이해했다고 해도, 로봇은 다음을 모두 계산해야 합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8022-aa70-fb94c84bb3ef",
+      "type": "bulleted_list_item",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "그 컵이 로봇 기준으로 정확히 얼마나 떨어진 좌표에 있는지",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "그 컵이 로봇 기준으로 정확히 얼마나 떨어진 좌표에 있는지",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80fd-9664-f13db52a914e",
+      "type": "bulleted_list_item",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "컵을 쥘 때 팔과 손을 어떤 자세로 움직여야 하는지",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "컵을 쥘 때 팔과 손을 어떤 자세로 움직여야 하는지",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-806b-a720-f52bb053d3b0",
+      "type": "bulleted_list_item",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "컵을 쥐는 데 얼마만큼의 힘을 줘야 하는지 (너무 세면 깨지고, 너무 약하면 놓침)",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "컵을 쥐는 데 얼마만큼의 힘을 줘야 하는지 (너무 세면 깨지고, 너무 약하면 놓침)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80ee-b445-da5f0b6272d0",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "즉 이해와 실행을 이어주는 연결고리 자체가 아직 어려운 문제입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "즉 이해와 실행을 이어주는 연결고리 자체가 아직 어려운 문제입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80b4-804e-e74ceb0a5473",
+      "type": "heading_3",
+      "has_children": false,
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "둘째, 실시간성과 계산 제약",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "둘째, 실시간성과 계산 제약",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8096-83f7-f38558fb7487",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "LLM과 VLM이 아무리 발전해도, 로봇은 수십 밀리초 수준의 빠른 반응 속도와 온디바이스 추론이라는 제약을 동시에 만족해야 합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "LLM과 VLM이 아무리 발전해도, 로봇은 수십 밀리초 수준의 빠른 반응 속도와 온디바이스 추론이라는 제약을 동시에 만족해야 합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-802e-aba6-e705ce7e710e",
+      "type": "quote",
+      "has_children": false,
+      "quote": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "온디바이스 추론(On-device Inference)이란, 클라우드 서버로 데이터를 보내 계산을 맡기는 대신 로봇에 내장된 자체 하드웨어(칩)에서 직접 모델 연산을 수행하는 방식을 말합니다. 네트워크 지연 없이 즉각 반응할 수 있다는 장점이 있지만, 서버급 GPU에 비해 연산 능력과 메모리가 제한적이라 무거운 모델을 그대로 올리기 어렵다는 제약이 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "온디바이스 추론(On-device Inference)이란, 클라우드 서버로 데이터를 보내 계산을 맡기는 대신 로봇에 내장된 자체 하드웨어(칩)에서 직접 모델 연산을 수행하는 방식을 말합니다. 네트워크 지연 없이 즉각 반응할 수 있다는 장점이 있지만, 서버급 GPU에 비해 연산 능력과 메모리가 제한적이라 무거운 모델을 그대로 올리기 어렵다는 제약이 있습니다.",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80bd-ae69-ddcaf026b39a",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "결국 아무리 똑똑한 모델이라도 로봇 안에서 실시간으로 빠르게 돌아갈 수 있어야 실제로 쓸모가 있다는 뜻입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "결국 아무리 똑똑한 모델이라도 로봇 안에서 실시간으로 빠르게 돌아갈 수 있어야 실제로 쓸모가 있다는 뜻입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8049-8006-dbe407b78aa7",
+      "type": "heading_3",
+      "has_children": false,
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "셋째, 불확실성과 안정성",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "셋째, 불확실성과 안정성",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8085-ad56-fec634243f48",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "로봇은 카메라가 비추는 부분만 인식할 수 있는 부분 관측 환경에서 동작합니다. 여기에 더해 센서에는 노이즈가 섞여 있고, 예기치 않은 외란(외부 충격이나 방해 요인)도 발생합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "로봇은 카메라가 비추는 부분만 인식할 수 있는 부분 관측 환경에서 동작합니다. 여기에 더해 센서에는 노이즈가 섞여 있고, 예기치 않은 외란(외부 충격이나 방해 요인)도 발생합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80c1-8b84-db6b30fa0b2d",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "그래서 아무리 추론 능력이 좋아져도, 실패 가능성과 불확실성 자체를 추론에 포함시키고, 안전 제약 범위 안에서만 행동하도록 만드는 구조가 반드시 필요합니다. 모델이 똑똑해지는 것과 별개로, 모를 때는 조심스럽게 행동하는 것 역시 피지컬 AI의 중요한 과제입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "그래서 아무리 추론 능력이 좋아져도, 실패 가능성과 불확실성 자체를 추론에 포함시키고, 안전 제약 범위 안에서만 행동하도록 만드는 구조가 반드시 필요합니다. 모델이 똑똑해지는 것과 별개로, 모를 때는 조심스럽게 행동하는 것 역시 피지컬 AI의 중요한 과제입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80bc-b89b-d47955f373b2",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c2af76d-38e2-8069-a81b-e000cd03118d",
+      "type": "heading_2",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "5. 정리",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "5. 정리",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-8039-a74c-c71a550026f7",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "생성형 AI라는 큰 범주 안에 텍스트를 다루는 LLM과 시각+언어를 다루는 VLM이 있고, VLM에 행동 능력이 더해진 VLA가 피지컬 AI를 구현하는 핵심 아키텍처로 쓰입니다. 피지컬 AI는 이런 이해·판단 능력에 로봇의 실제 행동과 제어까지 결합해, 생성형 AI의 한계를 물리 세계로 확장한 시스템입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "생성형 AI라는 큰 범주 안에 텍스트를 다루는 LLM과 시각+언어를 다루는 VLM이 있고, VLM에 행동 능력이 더해진 VLA가 피지컬 AI를 구현하는 핵심 아키텍처로 쓰입니다. 피지컬 AI는 이런 이해·판단 능력에 로봇의 실제 행동과 제어까지 결합해, 생성형 AI의 한계를 물리 세계로 확장한 시스템입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80ce-920d-c358825925ed",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "로봇 지능에서 LLM은 \"무엇을 해야 하는가\"를 이해하고, VLM은 \"지금 무엇이 보이는가\"를 인식하며, 이 둘의 판단을 바탕으로 VLA나 로봇 제어 시스템이 실제 움직임을 만들어냅니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "로봇 지능에서 LLM은 \"무엇을 해야 하는가\"를 이해하고, VLM은 \"지금 무엇이 보이는가\"를 인식하며, 이 둘의 판단을 바탕으로 VLA나 로봇 제어 시스템이 실제 움직임을 만들어냅니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-809a-befe-f6f97bb42795",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이 요소들이 결합되면 사람이 모든 상황을 미리 정의하지 않아도, 로봇이 언어로 된 지시를 이해하고 현실에서 유연하게 대응할 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이 요소들이 결합되면 사람이 모든 상황을 미리 정의하지 않아도, 로봇이 언어로 된 지시를 이해하고 현실에서 유연하게 대응할 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c2af76d-38e2-80ff-9918-e83b2ed4df61",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "다만 이해와 행동을 연결하는 그라운딩 문제, 실시간성과 온디바이스 연산 제약, 부분 관측과 불확실성 속에서의 안전한 행동이라는 세 가지 한계가 아직 남아 있어, 완전히 인간처럼 사고하고 행동하는 로봇까지는 시간이 더 필요해 보입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "다만 이해와 행동을 연결하는 그라운딩 문제, 실시간성과 온디바이스 연산 제약, 부분 관측과 불확실성 속에서의 안전한 행동이라는 세 가지 한계가 아직 남아 있어, 완전히 인간처럼 사고하고 행동하는 로봇까지는 시간이 더 필요해 보입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    }
+  ]
+}

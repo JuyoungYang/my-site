@@ -3,13 +3,26 @@
     "id": "3c1af76d-38e2-8036-ab83-ccce10936fb8",
     "title": "RAG 시스템 데이터 구조 정리: Collection, Document, Metadata, Chunk, Embedding",
     "summary": "RAG의 핵심 데이터 구조인 Collection, Document, Chunk, Metadata, Embedding의 역할과 이들이 검색부터 LLM 답변 생성까지 어떻게 연결되는지.",
-    "category": "AI",
+    "category": "AI 엔지니어링",
     "tags": [
       "RAG",
       "VectorDB",
       "LLM",
       "Embedding",
       "AI Engineering"
+    ],
+    "publishedAt": "2026-08-19"
+  },
+  {
+    "id": "3c2af76d-38e2-8077-a989-e92f71f6bd6e",
+    "title": "피지컬 AI 뜻과 원리 - LLM, VLM은 어떻게 로봇을 움직이는가",
+    "summary": "피지컬 AI를 이해하는 데 필요한 생성형 AI, LLM, VLM 개념을 정리하고, 이 모델들이 로봇 안에서 맡는 역할과 아직 남은 한계까지 짚어보았습니다.",
+    "category": "피지컬 AI",
+    "tags": [
+      "LLM",
+      "피지컬AI",
+      "VLM",
+      "생성형AI"
     ],
     "publishedAt": "2026-08-19"
   }
