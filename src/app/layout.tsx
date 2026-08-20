@@ -27,6 +27,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function(){try{
+          var stored=localStorage.getItem('theme');
+          var isDark=stored==='dark'||(!stored&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark',isDark);
+          }catch(e){}})();`}
+        </Script>
         <Script id="gtm-script" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

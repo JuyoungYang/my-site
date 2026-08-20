@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ThemeToggle } from "./ThemeToggle";
 import { VisitorCount } from "./VisitorCount";
 
 const NAV_ITEMS = [
@@ -51,6 +52,7 @@ export function Sidebar() {
         })}
       </nav>
 
+      <ThemeToggle />
       <VisitorCount />
     </aside>
   );
