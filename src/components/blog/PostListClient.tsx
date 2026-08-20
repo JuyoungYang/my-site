@@ -69,7 +69,7 @@ export function PostListClient({
       </div>
 
       {tags.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           {tags.map((tag) => (
             <button
               key={tag}
@@ -83,6 +83,14 @@ export function PostListClient({
               #{tag}
             </button>
           ))}
+          {selectedTags.length > 0 && (
+            <button
+              onClick={() => setSelectedTags([])}
+              className="text-xs text-zinc-400 underline underline-offset-2 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+            >
+              선택 초기화
+            </button>
+          )}
         </div>
       )}
 
