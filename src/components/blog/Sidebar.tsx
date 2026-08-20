@@ -49,6 +49,13 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://visitor-badge.laobi.icu/badge?page_id=juyoungyang.study-archive"
+        alt="방문자수"
+        className="mt-6 h-5 w-auto"
+      />
     </aside>
   );
 }
