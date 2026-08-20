@@ -21,10 +21,20 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggle}
+      role="switch"
+      aria-checked={isDark}
       aria-label="다크 모드 전환"
-      className="mt-6 flex h-8 w-8 items-center justify-center rounded-full text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+      className={`relative mt-6 flex h-7 w-14 shrink-0 items-center rounded-full transition-colors ${
+        isDark ? "bg-zinc-800" : "bg-zinc-200"
+      }`}
     >
-      {mounted ? (isDark ? "🌙" : "☀️") : null}
+      <span
+        className={`absolute left-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white text-sm shadow transition-transform ${
+          isDark ? "translate-x-7" : "translate-x-0"
+        }`}
+      >
+        {mounted ? (isDark ? "🌙" : "☀️") : null}
+      </span>
     </button>
   );
 }
