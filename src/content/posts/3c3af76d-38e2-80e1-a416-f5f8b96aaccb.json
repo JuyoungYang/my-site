@@ -1,0 +1,682 @@
+{
+  "id": "3c3af76d-38e2-80e1-a416-f5f8b96aaccb",
+  "title": "피지컬 AI는 어떻게 현실과 상호작용할까 - 인지·추론·행동·피드백 루프",
+  "summary": "로봇이 왜 한 번에 끝내지 못하고 인지-추론-행동-피드백을 계속 반복하는지, 그 폐루프 구조를 정리했다.",
+  "category": "피지컬 AI",
+  "tags": [
+    "피지컬AI",
+    "폐루프",
+    "인지"
+  ],
+  "publishedAt": "2026-08-21",
+  "blocks": [
+    {
+      "id": "3c3af76d-38e2-804d-81e3-fc1d3e5fa9f6",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "피지컬 AI는 결국 로봇이 현실 세계와 어떻게 상호작용하는가의 문제입니다. 이번 편에서는 그 상호작용이 실제로 어떤 구조로 이루어지는지 정리해봤습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "피지컬 AI는 결국 로봇이 현실 세계와 어떻게 상호작용하는가의 문제입니다. 이번 편에서는 그 상호작용이 실제로 어떤 구조로 이루어지는지 정리해봤습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-80c8-95db-d3eb6e4ca48b",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c3af76d-38e2-804e-940d-de08ea8e1939",
+      "type": "heading_2",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "1. 로봇은 왜 한 번에 끝내지 못할까",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "1. 로봇은 왜 한 번에 끝내지 못할까",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-80fd-ab8c-cc3114c7f632",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "사람이 방을 청소한다고 생각해보면, 한 번 보고 끝나는 게 아니라 \"둘러보기 → 상황 판단 → 청소 → 다시 둘러보기\"를 계속 반복합니다. 바닥을 닦다가 예상보다 얼룩이 안 지워지면 방법을 바꾸고, 물건이 있는 걸 못 보고 지나쳤으면 되돌아갑니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "사람이 방을 청소한다고 생각해보면, 한 번 보고 끝나는 게 아니라 \"둘러보기 → 상황 판단 → 청소 → 다시 둘러보기\"를 계속 반복합니다. 바닥을 닦다가 예상보다 얼룩이 안 지워지면 방법을 바꾸고, 물건이 있는 걸 못 보고 지나쳤으면 되돌아갑니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-8015-b8ee-d9568d730ac9",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "로봇도 마찬가지입니다. 피지컬 AI는 한 번의 추론으로 끝나는 시스템이 아니라, 관측하고 판단하고 행동하고 그 결과를 다시 확인하는 과정이 계속 순환하는 구조로 되어 있습니다. 이 순환을 폐루프(closed loop)라고 부릅니다. 로봇 앞의 상황은 로봇이 행동할 때마다 계속 바뀌기 때문에, 한 번 계획을 세웠다고 그대로 끝까지 실행할 수 없는 것입니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "로봇도 마찬가지입니다. 피지컬 AI는 한 번의 추론으로 끝나는 시스템이 아니라, 관측하고 판단하고 행동하고 그 결과를 다시 확인하는 과정이 계속 순환하는 구조로 되어 있습니다. 이 순환을 폐루프(closed loop)라고 부릅니다. 로봇 앞의 상황은 로봇이 행동할 때마다 계속 바뀌기 때문에, 한 번 계획을 세웠다고 그대로 끝까지 실행할 수 없는 것입니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-8087-8712-e68da900a67a",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c3af76d-38e2-80ce-a424-c63d3f2eb227",
+      "type": "heading_2",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "2. 상호작용의 네 단계",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "2. 상호작용의 네 단계",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-801a-b163-f0595c207327",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이 폐루프를 좀 더 단순하게 네 단계로 나눠볼 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이 폐루프를 좀 더 단순하게 네 단계로 나눠볼 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-80b3-afc1-d871bfdc8a37",
+      "type": "heading_3",
+      "has_children": false,
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "첫째, 인지 (Perception): 지금 뭐가 보이는가",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "첫째, 인지 (Perception): 지금 뭐가 보이는가",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-804d-b45f-f02d9039f1d0",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "로봇은 카메라, 관절 상태, 힘/토크 센서, 위치 정보 같은 다양한 센서를 통해 지금 자신이 어디에 있고 주변에 무엇이 있는지 파악합니다. 이 단계가 흔들리면 이후의 모든 판단과 행동도 함께 흔들립니다. 사람이 눈을 감고 방향을 못 잡으면 아무 일도 할 수 없는 것과 비슷합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "로봇은 카메라, 관절 상태, 힘/토크 센서, 위치 정보 같은 다양한 센서를 통해 지금 자신이 어디에 있고 주변에 무엇이 있는지 파악합니다. 이 단계가 흔들리면 이후의 모든 판단과 행동도 함께 흔들립니다. 사람이 눈을 감고 방향을 못 잡으면 아무 일도 할 수 없는 것과 비슷합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-80f1-a634-e93a4171a3f3",
+      "type": "heading_3",
+      "has_children": false,
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "둘째, 해석: 무엇이 보이는가보다 무엇을 할 수 있는가",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "둘째, 해석: 무엇이 보이는가보다 무엇을 할 수 있는가",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-80e3-be72-d2da1bbcbf9f",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "여기서 중요한 건 단순히 \"컵이 보인다\"는 사실이 아니라, \"그 컵을 지금 집을 수 있는가\"입니다. 컵이 손이 닿는 위치에 있는지, 손잡이가 어느 방향인지, 안에 내용물이 있어서 쏟아질 위험은 없는지까지 함께 해석해야 실제로 쓸모 있는 판단이 됩니다. 즉 시각 정보와 언어 명령, 로봇 자신의 상태가 함께 결합되어야 현실적인 판단이 가능해집니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "여기서 중요한 건 단순히 \"컵이 보인다\"는 사실이 아니라, \"그 컵을 지금 집을 수 있는가\"입니다. 컵이 손이 닿는 위치에 있는지, 손잡이가 어느 방향인지, 안에 내용물이 있어서 쏟아질 위험은 없는지까지 함께 해석해야 실제로 쓸모 있는 판단이 됩니다. 즉 시각 정보와 언어 명령, 로봇 자신의 상태가 함께 결합되어야 현실적인 판단이 가능해집니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-8091-af70-fcf29456024a",
+      "type": "heading_3",
+      "has_children": false,
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "셋째, 행동 생성: 실제로 무엇을 할지 정하기",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "셋째, 행동 생성: 실제로 무엇을 할지 정하기",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-8027-aa02-c842543619d5",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "목표와 현재 상태를 바탕으로 실제 행동을 만들어냅니다. 이때 행동은 \"스펀지를 찾아라\" 같은 상위 단계의 명령일 수도 있고, 로봇 팔의 관절 궤적, 이동 속도, 그리퍼(로봇 손) 제어 신호처럼 아주 구체적인 저수준 신호일 수도 있습니다. 최근 피지컬 AI 모델들은 이 단계를 더 유연하게 만들기 위해 다양한 방식을 시도하고 있는데, 언어 모델이 상위 계획만 세우게 하거나, 시각·언어 입력에서 바로 행동을 만들어내는 구조를 쓰거나, 상위 판단과 하위 제어를 아예 분리하는 등 접근 방식이 다양합니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "목표와 현재 상태를 바탕으로 실제 행동을 만들어냅니다. 이때 행동은 \"스펀지를 찾아라\" 같은 상위 단계의 명령일 수도 있고, 로봇 팔의 관절 궤적, 이동 속도, 그리퍼(로봇 손) 제어 신호처럼 아주 구체적인 저수준 신호일 수도 있습니다. 최근 피지컬 AI 모델들은 이 단계를 더 유연하게 만들기 위해 다양한 방식을 시도하고 있는데, 언어 모델이 상위 계획만 세우게 하거나, 시각·언어 입력에서 바로 행동을 만들어내는 구조를 쓰거나, 상위 판단과 하위 제어를 아예 분리하는 등 접근 방식이 다양합니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-8025-98ce-f8b87f059885",
+      "type": "heading_3",
+      "has_children": false,
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "넷째, 피드백: 결과를 다시 확인하고 수정하기",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "넷째, 피드백: 결과를 다시 확인하고 수정하기",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-8040-b07a-cda9be3e990b",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "현실에서는 행동이 한 번에 완벽하게 끝나지 않습니다. 물체가 예상보다 미끄러질 수도 있고, 사람이 갑자기 끼어들 수도 있고, 조명이 바뀌거나 센서가 잠깐 흔들릴 수도 있습니다. 그래서 로봇은 행동을 실행한 뒤 그 결과를 다시 관측하고, 목표와 비교해서 다음 행동을 수정해야 합니다. 이 순환이 짧은 주기로 안정적으로 반복될수록 로봇은 변화하는 환경에 더 잘 적응할 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "현실에서는 행동이 한 번에 완벽하게 끝나지 않습니다. 물체가 예상보다 미끄러질 수도 있고, 사람이 갑자기 끼어들 수도 있고, 조명이 바뀌거나 센서가 잠깐 흔들릴 수도 있습니다. 그래서 로봇은 행동을 실행한 뒤 그 결과를 다시 관측하고, 목표와 비교해서 다음 행동을 수정해야 합니다. 이 순환이 짧은 주기로 안정적으로 반복될수록 로봇은 변화하는 환경에 더 잘 적응할 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-807c-a373-c1e17075d374",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c3af76d-38e2-8029-86c2-de5f6bdda7c5",
+      "type": "heading_2",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "3. 왜 이 구조가 중요한가",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "3. 왜 이 구조가 중요한가",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-808e-98e9-f6152c586e01",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이 네 단계를 하나로 묶어보면, 피지컬 AI는 단순히 입력을 받아 출력을 내놓는 모델이 아니라는 걸 알 수 있습니다. 환경을 관측하고, 그 관측을 목표와 연결해 해석하며, 물리적으로 실행 가능한 행동을 만들고, 실행 결과를 다시 받아 다음 행동을 수정하는, 하나의 지능형 폐루프 시스템에 가깝습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이 네 단계를 하나로 묶어보면, 피지컬 AI는 단순히 입력을 받아 출력을 내놓는 모델이 아니라는 걸 알 수 있습니다. 환경을 관측하고, 그 관측을 목표와 연결해 해석하며, 물리적으로 실행 가능한 행동을 만들고, 실행 결과를 다시 받아 다음 행동을 수정하는, 하나의 지능형 폐루프 시스템에 가깝습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-8062-bfd8-cd755d87f01c",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "이렇게 이해하면 왜 피지컬 AI가 단순히 \"로봇 몸통에 LLM을 갖다 붙인 것\"이 아닌지도 자연스럽게 보입니다. 텍스트를 이해하는 능력 위에 시각적 장면 해석, 공간 추론, 실제로 가능한 행동인지 판단하는 능력, 저수준 연속 제어, 그리고 실행 결과의 피드백 반영까지 모두 얽혀 있어야 하기 때문입니다. 로봇이 환경과 상호작용한다는 것은, 결국 그 로봇이 자신의 몸으로 세상 안에서 무엇을 할 수 있는지 끊임없이 시험하고 조정하는 과정이라고 볼 수 있습니다.",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "이렇게 이해하면 왜 피지컬 AI가 단순히 \"로봇 몸통에 LLM을 갖다 붙인 것\"이 아닌지도 자연스럽게 보입니다. 텍스트를 이해하는 능력 위에 시각적 장면 해석, 공간 추론, 실제로 가능한 행동인지 판단하는 능력, 저수준 연속 제어, 그리고 실행 결과의 피드백 반영까지 모두 얽혀 있어야 하기 때문입니다. 로봇이 환경과 상호작용한다는 것은, 결국 그 로봇이 자신의 몸으로 세상 안에서 무엇을 할 수 있는지 끊임없이 시험하고 조정하는 과정이라고 볼 수 있습니다.",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-80af-b254-ead82cf6c5e9",
+      "type": "divider",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "id": "3c3af76d-38e2-80f5-be58-e4d19ca748c2",
+      "type": "heading_2",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "용어 정리",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "용어 정리",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-804b-9fb3-e9332d1601ba",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "인지(Perception): 센서를 통해 현재 환경과 로봇 자신의 상태를 파악하는 과정",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "인지(Perception): 센서를 통해 현재 환경과 로봇 자신의 상태를 파악하는 과정",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-80ef-8264-fcf584843a86",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "추론(Reasoning): 관측된 정보를 목표와 연결해 지금 무엇을 할 수 있는지 판단하는 과정",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "추론(Reasoning): 관측된 정보를 목표와 연결해 지금 무엇을 할 수 있는지 판단하는 과정",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-80b3-855a-c525a8e187a5",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "행동(Action): 판단을 바탕으로 실제로 실행할 동작을 만들어내는 과정",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "행동(Action): 판단을 바탕으로 실제로 실행할 동작을 만들어내는 과정",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-80db-beab-c78bf551ae8a",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "피드백(Feedback): 행동의 결과를 다시 관측해 다음 행동을 수정하는 과정",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "피드백(Feedback): 행동의 결과를 다시 관측해 다음 행동을 수정하는 과정",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    },
+    {
+      "id": "3c3af76d-38e2-808c-8e67-cda843e7d04d",
+      "type": "paragraph",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "폐루프(Closed loop): 인지-추론-행동-피드백이 한 번으로 끝나지 않고 계속 반복되는 순환 구조",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "폐루프(Closed loop): 인지-추론-행동-피드백이 한 번으로 끝나지 않고 계속 반복되는 순환 구조",
+            "href": null
+          }
+        ],
+        "icon": null,
+        "color": "default"
+      }
+    }
+  ]
+}

@@ -29,14 +29,25 @@ async function getDataSourceId(): Promise<string> {
   return database.data_sources[0].id;
 }
 
+function getTodayKST(): string {
+  const kst = new Date(Date.now() + 9 * 60 * 60 * 1000);
+  return kst.toISOString().slice(0, 10);
+}
+
 async function queryPublishedPages(dataSourceId: string): Promise<PageObjectResponse[]> {
   const pages: PageObjectResponse[] = [];
   let cursor: string | undefined;
+  const today = getTodayKST();
 
   do {
     const response = await notion.dataSources.query({
       data_source_id: dataSourceId,
-      filter: { property: PROPERTY.status, status: { equals: STATUS_PUBLISHED } },
+      filter: {
+        and: [
+          { property: PROPERTY.status, status: { equals: STATUS_PUBLISHED } },
+          { property: PROPERTY.publishedAt, date: { on_or_before: today } },
+        ],
+      },
       sorts: [{ property: PROPERTY.publishedAt, direction: "descending" }],
       start_cursor: cursor,
       page_size: 100,
@@ -88,7 +99,7 @@ async function main() {
 
   const dataSourceId = await getDataSourceId();
   const pages = await queryPublishedPages(dataSourceId);
-  console.log(`'${STATUS_PUBLISHED}' 상태의 글 ${pages.length}개를 찾았습니다.`);
+  console.log(`'${STATUS_PUBLISHED}' 상태이면서 작성일이 지난 글 ${pages.length}개를 찾았습니다.`);
 
   await mkdir(POSTS_DIR, { recursive: true });
 
