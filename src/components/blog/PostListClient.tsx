@@ -13,6 +13,7 @@ export function PostListClient({
 }) {
   const [category, setCategory] = useState<string | null>(initialCategory ?? null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [tagsExpanded, setTagsExpanded] = useState(false);
 
   const categories = useMemo(
     () => Array.from(new Set(posts.map((post) => post.category))).sort(),
@@ -23,6 +24,14 @@ export function PostListClient({
     () => Array.from(new Set(posts.flatMap((post) => post.tags))).sort(),
     [posts]
   );
+
+  const TAG_PREVIEW_COUNT = 8;
+  const visibleTags = useMemo(() => {
+    if (tagsExpanded) return tags;
+    const preview = new Set(tags.slice(0, TAG_PREVIEW_COUNT));
+    selectedTags.forEach((tag) => preview.add(tag));
+    return tags.filter((tag) => preview.has(tag));
+  }, [tags, tagsExpanded, selectedTags]);
 
   const filteredPosts = useMemo(() => {
     return posts.filter((post) => {
@@ -70,7 +79,7 @@ export function PostListClient({
 
       {tags.length > 0 && (
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          {tags.map((tag) => (
+          {visibleTags.map((tag) => (
             <button
               key={tag}
               onClick={() => toggleTag(tag)}
@@ -83,6 +92,14 @@ export function PostListClient({
               #{tag}
             </button>
           ))}
+          {tags.length > TAG_PREVIEW_COUNT && (
+            <button
+              onClick={() => setTagsExpanded((prev) => !prev)}
+              className="text-xs text-zinc-400 underline underline-offset-2 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+            >
+              {tagsExpanded ? "접기" : `더보기 +${tags.length - visibleTags.length}`}
+            </button>
+          )}
           {selectedTags.length > 0 && (
             <button
               onClick={() => setSelectedTags([])}
